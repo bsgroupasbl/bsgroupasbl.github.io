@@ -1,66 +1,161 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BS GROUP ASBL GOMA | Association à Goma, Nord-Kivu RDC</title>
-<meta name="description" content="BS GROUP ASBL est une organisation basée à Goma, Nord-Kivu, RDC. Développement communautaire, entrepreneuriat et actions sociales.">
-<meta name="keywords" content="BS GROUP ASBL GOMA, BS GROUP Goma, ASBL Goma, Association Goma, Nord-Kivu RDC">
-<meta name="author" content="BS GROUP ASBL Goma">
-<meta property="og:title" content="BS GROUP ASBL GOMA - Goma RDC">
-<meta property="og:description" content="Une même vision pour entreprendre et faire grandir les communautés à Goma.">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family:system-ui,Arial,sans-serif;color:#1a2e35;background:#f9f7f3;line-height:1.6}
-header{background:#fff;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;box-shadow:0 2px 10px rgba(0,0,0,.05);position:sticky;top:0}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;color:#0f4c5c}
-.logo img{height:45px}
-nav a{margin-left:12px;text-decoration:none;color:#1a2e35;font-weight:500;font-size:13px}
-.hero{padding:50px 20px;max-width:1100px;margin:0 auto}
-.lieu{color:#d85a2a;font-weight:700;letter-spacing:1px;font-size:12px;margin-bottom:15px}
-.hero h1{font-size:clamp(32px,7vw,60px);line-height:1;font-weight:800;max-width:600px}
-.hero p{margin-top:20px;max-width:500px;color:#555;font-size:18px}
-.cta{margin-top:25px;display:inline-block;background:#0f4c5c;color:#fff;padding:12px 24px;text-decoration:none;border-radius:6px;font-weight:600}
-section{padding:50px 20px;max-width:1100px;margin:0 auto}
-.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:15px;margin-top:20px}
-.card{background:#fff;padding:20px;border-radius:12px;box-shadow:0 4px 15px rgba(0,0,0,.06)}
-footer{background:#1a2e35;color:#fff;padding:30px 20px;text-align:center;margin-top:30px}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BS GROUP, groupe d'entreprises et ONG engagé pour le développement durable en RDC.">
+  <title>BS GROUP a.s.b.l. | Entreprendre et agir</title>
+  <link rel="stylesheet" href="stylle.css">
 </head>
+
 <body>
-<header>
-<div class="logo"><img src="logo bs group asbl.png" alt="BS GROUP ASBL GOMA"> BS GROUP ASBL</div>
-<nav>
-<a href="#groupe">Le groupe</a>
-<a href="#contact">Nous contacter</a>
-</nav>
-</header>
-<div class="hero">
-<div class="lieu">GOMA, NORD-KIVU • RÉPUBLIQUE DÉMOCRATIQUE DU CONGO</div>
-<h1>Une même vision pour entreprendre et faire grandir les communautés</h1>
-<p><strong>BS GROUP ASBL GOMA</strong> réunit des entreprises et ONG à Goma pour le développement durable par et pour les communautés locales.</p>
-<a href="#contact" class="cta">Rejoindre BS GROUP ASBL Goma</a>
-</div>
-<section id="groupe">
-<h2>BS GROUP ASBL GOMA - Qui sommes-nous ?</h2>
-<div class="cards">
-<div class="card"><h3>🌍 Basé à Goma</h3><p>Ancrée au Nord-Kivu, nous connaissons les réalités de Goma.</p></div>
-<div class="card"><h3>🚀 Entrepreneuriat</h3><p>Nous soutenons les jeunes entrepreneurs de Goma.</p></div>
-<div class="card"><h3>🤝 Actions Sociales</h3><p>Développement communautaire et solidarité à Goma.</p></div>
-</div>
-</section>
-<section id="contact" style="background:#fff;border-radius:16px;">
-<h2>Contactez BS GROUP ASBL à Goma</h2>
-<p style="margin-top:10px">📍 Goma, Nord-Kivu, RDC</p>
-<p>📱 WhatsApp: +243 ... (mets ton numéro ici)</p>
-<p>📧 bsgroupasbl.goma@gmail.com</p>
-</section>
-<footer>
-<p><strong>BS GROUP ASBL GOMA</strong> - Goma, Nord-Kivu, RDC</p>
-<p style="margin-top:8px;font-size:12px;opacity:.6">© 2026 BS GROUP ASBL Goma</p>
-</footer>
-<script type="application/ld+json">
-{"@context":"https://schema.org","@type":"NGO","name":"BS GROUP ASBL GOMA","address":{"@type":"PostalAddress","addressLocality":"Goma","addressRegion":"Nord-Kivu","addressCountry":"CD"}}
-</script>
+  <header class="site-header">
+    <a class="brand" href="#accueil" aria-label="BS GROUP a.s.b.l., accueil">
+      <img class="brand-logo" src="./logo%20bs%20group%20asbl.png" alt="logo bs group asbl">
+    </a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="#groupe">Le groupe</a>
+      <a href="#activites">Nos activités</a>
+      <a href="#histoire">Notre histoire</a>
+      <a href="#contact" class="nav-cta">Nous contacter</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="hero-content">
+        <p class="eyebrow">Goma, Nord-Kivu · République démocratique du Congo</p>
+        <h1>Une même vision pour entreprendre et faire grandir les communautés.</h1>
+        <p class="hero-intro">BS GROUP réunit un groupe d'entreprises et des organisations non gouvernementales autour d'une conviction : le développement durable naît d'initiatives locales, utiles et responsables.</p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#activites">Découvrir nos activités <span aria-hidden="true">↘</span></a>
+          <a class="text-link" href="#groupe">Comprendre notre modèle <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <div class="hero-aside" aria-label="Présentation de BS GROUP">
+        <span class="hero-number">BS GROUP a.s.b.l</span>
+        <p>Un écosystème qui relie l'initiative privée à l'action sociale.</p>
+        <span class="hero-line"></span>
+        <p class="hero-aside-small">Créer de la valeur, ouvrir des possibilités, améliorer durablement les conditions de vie.</p>
+      </div>
+    </section>
+
+    <section class="intro section" id="groupe">
+      <div class="section-heading">
+        <p class="eyebrow">Notre organisation</p>
+        <h2>Deux pôles, une ambition commune.</h2>
+      </div>
+      <div class="intro-copy">
+        <p>BS GROUP est une structure qui accompagne le développement intégral des personnes et des territoires. Son modèle repose sur deux dimensions complémentaires : des entreprises qui créent des services et des emplois, et des ONG qui renforcent l'accès aux opportunités essentielles.</p>
+        <p>Implanté à Goma, BS GROUP agit avec une connaissance directe des réalités locales et l'ambition de construire des solutions durables pour la RDC et ses environs.</p>
+      </div>
+    </section>
+
+    <section class="activities section" id="activites">
+      <div class="section-heading section-heading-wide">
+        <p class="eyebrow">Nos activités</p>
+        <h2>Des expertises au service d'un même élan.</h2>
+        <p>Nos pôles répondent aux besoins du quotidien tout en préparant les communautés aux opportunités de demain.</p>
+      </div>
+      <div class="activity-grid">
+        <details class="activity-card business-card">
+          <summary><span class="card-index">01 / ENTREPRISES</span><h3>BS PRINT</h3><p>Impression digitale, communication visuelle et accessoires d'imprimerie pour les particuliers, entreprises et institutions.</p><span class="details-toggle">En savoir plus <span aria-hidden="true">↗</span></span></summary>
+          <div class="card-details">
+            <ul class="card-meta">
+              <li><strong>Clients</strong><span>Particuliers, PME, institutions</span></li>
+              <li><strong>Services</strong><span>Flyers, cartes, impressions sur mesure</span></li>
+              <li><strong>Valeur</strong><span>Un service rapide et accessible localement</span></li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="activity-card business-card">
+          <summary><span class="card-index">02 / ENTREPRISES</span><h3>BS PHARMA</h3><p>Dépôt pharmaceutique, services de santé et solutions favorisant un accès plus digne aux soins.</p><span class="details-toggle">En savoir plus <span aria-hidden="true">↗</span></span></summary>
+          <div class="card-details">
+            <ul class="card-meta">
+              <li><strong>Mission</strong><span>Renforcer l'accès aux produits de santé</span></li>
+              <li><strong>Public</strong><span>Collectivités, patients, professionnels</span></li>
+              <li><strong>Impact</strong><span>Une meilleure disponibilité et qualité de service</span></li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="activity-card business-card">
+          <summary><span class="card-index">03 / ENTREPRISES</span><h3>BS TECH</h3><p>Informatique, électronique, électricité, construction et mécanique pour accompagner l'innovation locale.</p><span class="details-toggle">En savoir plus <span aria-hidden="true">↗</span></span></summary>
+          <div class="card-details">
+            <ul class="card-meta">
+              <li><strong>Expertise</strong><span>Maintenance, installation et solutions techniques</span></li>
+              <li><strong>Domaines</strong><span>Électricité, mécanique, numérique, bâtiment</span></li>
+              <li><strong>Objectif</strong><span>Renforcer la capacité locale de production</span></li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="activity-card business-card">
+          <summary><span class="card-index">04 / ENTREPRISES</span><h3>BS CAFÉ</h3><p>Un espace autour de l'alimentation, de la convivialité et de la valorisation des initiatives locales.</p><span class="details-toggle">En savoir plus <span aria-hidden="true">↗</span></span></summary>
+          <div class="card-details">
+            <ul class="card-meta">
+              <li><strong>Ambiance</strong><span>Lieu de rencontre et d'échange</span></li>
+              <li><strong>Focus</strong><span>Produits locaux, service de qualité, accueil</span></li>
+              <li><strong>Effet</strong><span>Créer un lien social autour de la communauté</span></li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="activity-card ngo-card">
+          <summary><span class="card-index">05 / ONG</span><h3>BS SCHOOL</h3><p>Des actions éducatives de la maternelle à l'enseignement supérieur pour développer les talents et l'autonomie.</p><span class="details-toggle">En savoir plus <span aria-hidden="true">↗</span></span></summary>
+          <div class="card-details">
+            <ul class="card-meta">
+              <li><strong>Public</strong><span>Élèves, étudiants, familles, enseignants</span></li>
+              <li><strong>Niveau</strong><span>De la maternelle à l'université</span></li>
+              <li><strong>Vision</strong><span>Former des talents utiles à la communauté</span></li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="activity-card ngo-card">
+          <summary><span class="card-index">06 / ONG</span><h3>BS ACTION HUMANITAIRE</h3><p>Accompagnement humanitaire, entraide et protection des personnes vulnérables, notamment les enfants.</p><span class="details-toggle">En savoir plus <span aria-hidden="true">↗</span></span></summary>
+          <div class="card-details">
+            <ul class="card-meta">
+              <li><strong>Appui</strong><span>Protection, aide sociale, soutien concret</span></li>
+              <li><strong>Cible</strong><span>Familles vulnérables, enfants et personnes en besoin</span></li>
+              <li><strong>Engagement</strong><span>Une réponse locale, humaine et durable</span></li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="story section" id="histoire">
+      <div class="story-label"><p class="eyebrow">L'origine du projet</p><span class="story-year">BS / 01</span></div>
+      <div class="story-content">
+        <h2>Une histoire familiale devenue une vision collective.</h2>
+        <p>Le nom BS GROUP vient de BAUMA SALEH JOËL marié à BAENI KUBUYA DIVINE, fils de Balume Saleh et de Baeni Sarah. Né d'une famille qui a connu la précarité, le projet s'est construit autour d'une idée simple : la difficulté vécue peut devenir une force pour aider d'autres familles à se relever.</p>
+        <p>Après un parcours marqué par la persévérance, l'entrepreneuriat et la passion pour la technologie, cette vision s'est élargie. Elle donne aujourd'hui naissance à un groupe qui veut créer des activités économiques solides tout en soutenant l'éducation, la santé et l'action humanitaire.</p>
+      </div>
+    </section>
+
+    <section class="values section">
+      <div class="section-heading"><p class="eyebrow">Ce qui nous guide</p><h2>Notre impact se construit dans la durée.</h2></div>
+      <div class="values-list">
+        <div><span>01</span><h3>Intégrité</h3><p>Agir avec responsabilité, transparence et respect des personnes.</p></div>
+        <div><span>02</span><h3>Initiative</h3><p>Transformer les besoins locaux en solutions concrètes et utiles.</p></div>
+        <div><span>03</span><h3>Solidarité</h3><p>Faire circuler les opportunités et ne laisser personne de côté.</p></div>
+      </div>
+    </section>
+
+    <section class="contact section" id="contact">
+      <div><p class="eyebrow">Parlons de la suite</p><h2>Construisons quelque chose d'utile ensemble.</h2></div>
+      <div class="contact-details"><p>Vous souhaitez collaborer avec BS GROUP, soutenir une action ou en savoir plus sur nos activités ? Notre équipe est à votre écoute.</p><a class="contact-email" href="mailto:contact@bsgroup.cd">contact@bsgroup.cd <span aria-hidden="true">↗</span></a><p class="contact-location">Goma, Nord-Kivu<br>République démocratique du Congo</p></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <img class="footer-logo" src="./logo%20bs%20group%20asbl.png" alt="BS GROUP a.s.b.l.">
+    <p>Christ en nous, l'espérance de la gloire</p>
+    <p>© 2026 BS GROUP. Tous droits réservés.</p>
+  </footer>
 </body>
+
 </html>
