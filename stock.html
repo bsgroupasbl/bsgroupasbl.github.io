@@ -18,13 +18,15 @@
     <section class="login-panel" id="login-panel" aria-labelledby="login-title">
       <p class="eyebrow">Espace entreprise</p>
       <h1 id="login-title">Connexion</h1>
-      <p class="login-company" id="login-company"></p>
+      <p class="login-company">Nom, postnom et mot de passe</p>
       <form id="login-form">
-        <label for="email">Adresse e-mail</label>
-        <input id="email" name="email" type="email" autocomplete="username" required>
+        <label for="first-name">Nom</label>
+        <input id="first-name" name="first_name" autocomplete="given-name" required>
+        <label for="last-name">Postnom</label>
+        <input id="last-name" name="last_name" autocomplete="family-name" required>
         <label for="password">Mot de passe</label>
         <input id="password" name="password" type="password" autocomplete="current-password" required>
-        <button class="primary-button" type="submit">Ouvrir la gestion <span aria-hidden="true">→</span></button>
+        <button class="primary-button" id="login-submit-button" type="submit">Ouvrir l’espace entreprise <span aria-hidden="true">→</span></button>
       </form>
       <p class="app-message" id="login-message" role="status" aria-live="polite"></p>
     </section>
@@ -37,8 +39,51 @@
           <p class="inventory-company" id="inventory-company"></p>
           <p class="user-role" id="user-role"></p>
         </div>
-        <button class="quiet-button" id="logout-button" type="button">Fermer la session</button>
+        <div class="inventory-session-actions">
+          <label class="company-switcher" id="company-switcher" hidden>Entreprise
+            <select id="company-select">
+              <option value="print">BS PRINT</option>
+              <option value="cafe">BS CAFÉ</option>
+              <option value="pharma">BS PHARMA</option>
+              <option value="tech">BS TECH</option>
+            </select>
+          </label>
+          <button class="quiet-button" id="logout-button" type="button">Fermer la session</button>
+        </div>
       </div>
+
+      <section class="user-admin-panel" id="user-admin-panel" hidden aria-labelledby="user-admin-title">
+        <div class="user-admin-heading">
+          <div>
+            <p class="eyebrow">Administration</p>
+            <h2 id="user-admin-title">Inviter un utilisateur</h2>
+          </div>
+          <p>Un e-mail d’invitation lui permettra de définir son mot de passe.</p>
+        </div>
+        <form id="invite-user-form">
+          <div class="invite-form-grid">
+            <label for="invite-email">Adresse e-mail<input id="invite-email" name="email" type="email" autocomplete="off" required></label>
+            <label for="invite-first-name">Nom<input id="invite-first-name" name="first_name" maxlength="60" required></label>
+            <label for="invite-last-name">Postnom<input id="invite-last-name" name="last_name" maxlength="60" required></label>
+            <label for="invite-company">Entreprise
+              <select id="invite-company" name="company" required>
+                <option value="print">BS PRINT</option>
+                <option value="cafe">BS CAFÉ</option>
+                <option value="pharma">BS PHARMA</option>
+                <option value="tech">BS TECH</option>
+              </select>
+            </label>
+            <label for="invite-role">Rôle
+              <select id="invite-role" name="role" required>
+                <option value="manager">Administrateur gestionnaire</option>
+                <option value="viewer">Consultant</option>
+              </select>
+            </label>
+          </div>
+          <button class="primary-button" id="invite-submit-button" type="submit">Envoyer l’invitation <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="app-message" id="invite-message" role="status" aria-live="polite"></p>
+      </section>
 
       <form class="product-form" id="product-form">
         <h2 id="product-form-title">Ajouter un article</h2>
@@ -47,6 +92,7 @@
           <label>Référence<input name="sku" maxlength="40"></label>
           <label>Quantité<input name="quantity" type="number" min="0" step="1" required></label>
           <label>Unité<input name="unit" maxlength="20" placeholder="pièce, boîte, rouleau…" required></label>
+          <label>Prix de vente (CDF)<input name="unit_price" type="number" min="0" step="0.01" value="0" required></label>
           <label>Seuil d’alerte<input name="threshold" type="number" min="0" step="1" value="5" required></label>
           <label class="pharma-field" id="batch-field">Numéro de lot<input name="batch" maxlength="40"></label>
           <label class="pharma-field" id="expiry-field">Date d’expiration<input name="expiry" type="date"></label>
@@ -58,6 +104,22 @@
       </form>
       <p class="app-message" id="inventory-message" role="status" aria-live="polite"></p>
 
+      <section class="sales-panel" id="sales-panel" aria-labelledby="sales-title">
+        <div class="sales-heading">
+          <div><p class="eyebrow">Ventes</p><h2 id="sales-title">Enregistrer une vente</h2></div>
+          <p>Le stock sera diminué automatiquement.</p>
+        </div>
+        <form id="sale-form">
+          <div class="sale-form-grid">
+            <label for="sale-product">Article<select id="sale-product" name="inventory_id" required></select></label>
+            <label for="sale-quantity">Quantité vendue<input id="sale-quantity" name="quantity" type="number" min="1" step="1" value="1" required></label>
+            <div class="sale-total"><span>Prix unitaire</span><strong id="sale-unit-price">0 CDF</strong><span>Total estimé</span><strong id="sale-total">0 CDF</strong></div>
+          </div>
+          <button class="primary-button" id="sale-submit-button" type="submit">Confirmer la vente <span aria-hidden="true">→</span></button>
+        </form>
+        <p class="app-message" id="sale-message" role="status" aria-live="polite"></p>
+      </section>
+
       <section class="stock-list" aria-labelledby="stock-list-title">
         <div class="stock-list-heading">
           <div><p class="eyebrow">Inventaire</p><h2 id="stock-list-title">Articles en stock</h2></div>
@@ -65,12 +127,25 @@
         </div>
         <div class="table-scroll">
           <table>
-            <thead><tr><th>Article</th><th>Référence / lot</th><th>Expiration</th><th>Quantité</th><th>État</th><th><span class="visually-hidden">Actions</span></th></tr></thead>
+            <thead><tr><th>Article</th><th>Référence / lot</th><th>Expiration</th><th>Quantité</th><th>Prix (CDF)</th><th>État</th><th><span class="visually-hidden">Actions</span></th></tr></thead>
             <tbody id="stock-rows"></tbody>
           </table>
         </div>
         <p class="empty-state" id="empty-state">Aucun article. Ajoutez votre premier article ci-dessus.</p>
         <p class="no-results" id="no-results" hidden>Aucun résultat pour cette recherche.</p>
+      </section>
+
+      <section class="sales-history" aria-labelledby="sales-history-title">
+        <div class="stock-list-heading">
+          <div><p class="eyebrow">Historique</p><h2 id="sales-history-title">Dernières ventes</h2></div>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Date</th><th>Article</th><th>Quantité</th><th>Prix unitaire</th><th>Total (CDF)</th></tr></thead>
+            <tbody id="sales-rows"></tbody>
+          </table>
+        </div>
+        <p class="empty-state" id="sales-empty-state">Aucune vente enregistrée.</p>
       </section>
     </section>
     <p class="app-message setup-message" id="setup-message" role="alert" hidden></p>
