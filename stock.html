@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Gestion de stock | BS GROUP</title>
+  <link rel="stylesheet" href="stock.css">
+  <script type="module" src="stock.js"></script>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="app-header">
+      <a class="wordmark" href="index.html">BS GROUP <span>/ Gestion interne</span></a>
+      <a class="back-link" href="index.html#activites">Retour au site <span aria-hidden="true">↗</span></a>
+    </header>
+
+    <section class="login-panel" id="login-panel" aria-labelledby="login-title">
+      <p class="eyebrow">Espace entreprise</p>
+      <h1 id="login-title">Connexion</h1>
+      <p class="login-company" id="login-company"></p>
+      <form id="login-form">
+        <label for="email">Adresse e-mail</label>
+        <input id="email" name="email" type="email" autocomplete="username" required>
+        <label for="password">Mot de passe</label>
+        <input id="password" name="password" type="password" autocomplete="current-password" required>
+        <button class="primary-button" type="submit">Ouvrir la gestion <span aria-hidden="true">→</span></button>
+      </form>
+      <p class="app-message" id="login-message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="inventory-panel" id="inventory-panel" hidden aria-labelledby="inventory-title">
+      <div class="inventory-heading">
+        <div>
+          <p class="eyebrow">Espace entreprise</p>
+          <h1 id="inventory-title">Gestion de stock</h1>
+          <p class="inventory-company" id="inventory-company"></p>
+          <p class="user-role" id="user-role"></p>
+        </div>
+        <button class="quiet-button" id="logout-button" type="button">Fermer la session</button>
+      </div>
+
+      <form class="product-form" id="product-form">
+        <h2>Ajouter un article</h2>
+        <div class="form-grid">
+          <label>Nom de l’article<input name="name" maxlength="80" required></label>
+          <label>Référence<input name="sku" maxlength="40"></label>
+          <label>Quantité<input name="quantity" type="number" min="0" step="1" required></label>
+          <label>Unité<input name="unit" maxlength="20" placeholder="pièce, boîte, rouleau…" required></label>
+          <label>Seuil d’alerte<input name="threshold" type="number" min="0" step="1" value="5" required></label>
+          <label class="pharma-field" id="batch-field">Numéro de lot<input name="batch" maxlength="40"></label>
+          <label class="pharma-field" id="expiry-field">Date d’expiration<input name="expiry" type="date"></label>
+        </div>
+        <button class="primary-button" type="submit">Ajouter au stock <span aria-hidden="true">+</span></button>
+      </form>
+      <p class="app-message" id="inventory-message" role="status" aria-live="polite"></p>
+
+      <section class="stock-list" aria-labelledby="stock-list-title">
+        <div class="stock-list-heading">
+          <div><p class="eyebrow">Inventaire</p><h2 id="stock-list-title">Articles en stock</h2></div>
+          <label class="search-label">Rechercher<input id="search-input" type="search" placeholder="Nom ou référence"></label>
+        </div>
+        <div class="table-scroll">
+          <table>
+            <thead><tr><th>Article</th><th>Référence / lot</th><th>Expiration</th><th>Quantité</th><th>État</th><th><span class="visually-hidden">Actions</span></th></tr></thead>
+            <tbody id="stock-rows"></tbody>
+          </table>
+        </div>
+        <p class="empty-state" id="empty-state">Aucun article. Ajoutez votre premier article ci-dessus.</p>
+        <p class="no-results" id="no-results" hidden>Aucun résultat pour cette recherche.</p>
+      </section>
+    </section>
+    <p class="app-message setup-message" id="setup-message" role="alert" hidden></p>
+    <footer class="app-footer">BS GROUP a.s.b.l. · Goma, Nord-Kivu</footer>
+  </main>
+</body>
+</html>
