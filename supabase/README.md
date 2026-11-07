@@ -8,11 +8,11 @@ Apres la migration, attribuer le nom et le postnom au profil admin deja cree. Re
 
 ```sql
 update public.profiles
-set first_name = 'TON_NOM', last_name = 'TON_POSTNOM'
+set first_name = 'TON_PRENOM', last_name = 'TON_NOM'
 where user_id = 'UUID_DE_TON_COMPTE_ADMIN';
 ```
 
-Les noms doivent etre uniques. La connexion utilise nom + postnom + mot de passe; l'adresse e-mail reste utilisee pour recevoir l'invitation et recuperer le compte.
+Le couple prenom + nom doit etre unique. La connexion utilise prenom + nom + mot de passe; l'adresse e-mail reste utilisee pour recevoir l'invitation et recuperer le compte.
 
 Pour autoriser les consultants a enregistrer des ventes sans leur donner le droit de modifier l'inventaire, executer `allow-consultant-sales.sql` une fois dans le SQL Editor. Les ventes diminuent le stock via `record_sale`; les politiques RLS d'ajout, de modification et de suppression restent reservees aux administrateurs et gestionnaires.
 

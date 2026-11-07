@@ -36,7 +36,7 @@ Deno.serve(async (request: Request) => {
   try {
     payload = await request.json();
   } catch {
-    return jsonResponse(request, { error: 'Nom, postnom ou mot de passe incorrect.' }, 401);
+    return jsonResponse(request, { error: 'Prénom, nom ou mot de passe incorrect.' }, 401);
   }
 
   const firstName = typeof payload.first_name === 'string' ? payload.first_name.trim() : '';
@@ -44,7 +44,7 @@ Deno.serve(async (request: Request) => {
   const password = typeof payload.password === 'string' ? payload.password : '';
   const validName = /^[\p{L}][\p{L} '-]{0,59}$/u;
   if (!validName.test(firstName) || !validName.test(lastName) || password.length < 1 || password.length > 256) {
-    return jsonResponse(request, { error: 'Nom, postnom ou mot de passe incorrect.' }, 401);
+    return jsonResponse(request, { error: 'Prénom, nom ou mot de passe incorrect.' }, 401);
   }
 
   const adminClient = createClient(projectUrl, serviceRoleKey, {
@@ -61,18 +61,18 @@ Deno.serve(async (request: Request) => {
     .ilike('last_name', lastName)
     .maybeSingle();
   if (profileError || !profile) {
-    return jsonResponse(request, { error: 'Nom, postnom ou mot de passe incorrect.' }, 401);
+    return jsonResponse(request, { error: 'Prénom, nom ou mot de passe incorrect.' }, 401);
   }
 
   const { data: authUser, error: authUserError } = await adminClient.auth.admin.getUserById(profile.user_id);
   const email = authUser.user?.email;
   if (authUserError || !email) {
-    return jsonResponse(request, { error: 'Nom, postnom ou mot de passe incorrect.' }, 401);
+    return jsonResponse(request, { error: 'Prénom, nom ou mot de passe incorrect.' }, 401);
   }
 
   const { data: login, error: loginError } = await loginClient.auth.signInWithPassword({ email, password });
   if (loginError || !login.session) {
-    return jsonResponse(request, { error: 'Nom, postnom ou mot de passe incorrect.' }, 401);
+    return jsonResponse(request, { error: 'Prénom, nom ou mot de passe incorrect.' }, 401);
   }
 
   return jsonResponse(request, {

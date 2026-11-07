@@ -98,7 +98,7 @@ Deno.serve(async (request: Request) => {
   }
   const validName = /^[\p{L}][\p{L} '-]{0,59}$/u;
   if (!validName.test(firstName) || !validName.test(lastName)) {
-    return jsonResponse(request, { error: 'Le nom et le postnom doivent contenir entre 1 et 60 lettres.' }, 400);
+    return jsonResponse(request, { error: 'Le prénom et le nom doivent contenir entre 1 et 60 lettres.' }, 400);
   }
   if (!['print', 'cafe', 'pharma', 'tech'].includes(String(company))) {
     return jsonResponse(request, { error: 'Entreprise invalide.' }, 400);
@@ -114,7 +114,7 @@ Deno.serve(async (request: Request) => {
     .ilike('last_name', lastName)
     .maybeSingle();
   if (nameLookupError) return jsonResponse(request, { error: 'Vérification du nom impossible.' }, 500);
-  if (existingProfile) return jsonResponse(request, { error: 'Ce nom et ce postnom sont déjà attribués. Ajoutez un deuxième nom distinctif.' }, 409);
+  if (existingProfile) return jsonResponse(request, { error: 'Ce prénom et ce nom sont déjà attribués. Vérifiez les informations saisies.' }, 409);
 
   const { data: inviteData, error: inviteError } = await adminClient.auth.admin.inviteUserByEmail(email, {
     redirectTo: 'https://bsgroupasbl.github.io/stock.html?invite=1'

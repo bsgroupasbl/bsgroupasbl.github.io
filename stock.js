@@ -554,7 +554,7 @@ async function loginFunctionErrorMessage(error) {
   const response = error?.context;
   if (response instanceof Response) {
     if (response.status === 404) return 'La fonction login-by-name est introuvable. Vérifiez son nom et son déploiement.';
-    if (response.status === 401) return 'Nom, postnom ou mot de passe incorrect, ou compte non confirmé dans Supabase Auth.';
+    if (response.status === 401) return 'Prénom, nom ou mot de passe incorrect, ou compte non confirmé dans Supabase Auth.';
     try {
       const body = await response.clone().json();
       if (body?.error) return body.error;
