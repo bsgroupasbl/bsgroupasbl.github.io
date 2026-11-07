@@ -41,7 +41,7 @@
       </div>
 
       <form class="product-form" id="product-form">
-        <h2>Ajouter un article</h2>
+        <h2 id="product-form-title">Ajouter un article</h2>
         <div class="form-grid">
           <label>Nom de l’article<input name="name" maxlength="80" required></label>
           <label>Référence<input name="sku" maxlength="40"></label>
@@ -51,7 +51,10 @@
           <label class="pharma-field" id="batch-field">Numéro de lot<input name="batch" maxlength="40"></label>
           <label class="pharma-field" id="expiry-field">Date d’expiration<input name="expiry" type="date"></label>
         </div>
-        <button class="primary-button" type="submit">Ajouter au stock <span aria-hidden="true">+</span></button>
+        <div class="form-actions">
+          <button class="primary-button" id="product-submit-button" type="submit"><span id="product-submit-label">Ajouter au stock</span><span id="product-submit-icon" aria-hidden="true">+</span></button>
+          <button class="quiet-button" id="cancel-edit-button" type="button" hidden>Annuler</button>
+        </div>
       </form>
       <p class="app-message" id="inventory-message" role="status" aria-live="polite"></p>
 

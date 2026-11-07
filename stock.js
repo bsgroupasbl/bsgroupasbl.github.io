@@ -20,10 +20,15 @@ const noResults = document.querySelector('#no-results');
 const loginMessage = document.querySelector('#login-message');
 const inventoryMessage = document.querySelector('#inventory-message');
 const setupMessage = document.querySelector('#setup-message');
+const productFormTitle = document.querySelector('#product-form-title');
+const productSubmitLabel = document.querySelector('#product-submit-label');
+const productSubmitIcon = document.querySelector('#product-submit-icon');
+const cancelEditButton = document.querySelector('#cancel-edit-button');
 const roleLabels = { admin: 'Administrateur', manager: 'Responsable du stock', viewer: 'Consultation' };
 let supabase;
 let products = [];
 let profile;
+let editingProductId = null;
 
 document.querySelector('#login-company').textContent = company.name;
 document.querySelector('#inventory-company').textContent = company.name;
@@ -56,11 +61,12 @@ document.querySelector('#logout-button').addEventListener('click', async () => {
   if (error) showMessage(inventoryMessage, friendlyError(error), true);
 });
 
+cancelEditButton.addEventListener('click', cancelEdit);
+
 productForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const formData = new FormData(productForm);
-  const { error } = await supabase.from('inventory').insert({
-    company: companyKey,
+  const productData = {
     name: String(formData.get('name')).trim(),
     sku: String(formData.get('sku')).trim(),
     quantity: Number(formData.get('quantity')),
@@ -68,13 +74,15 @@ productForm.addEventListener('submit', async (event) => {
     threshold: Number(formData.get('threshold')),
     batch: String(formData.get('batch')).trim(),
     expiry: String(formData.get('expiry')) || null
-  });
+  };
+  const { error } = editingProductId
+    ? await supabase.from('inventory').update(productData).eq('id', editingProductId).eq('company', companyKey)
+    : await supabase.from('inventory').insert({ ...productData, company: companyKey });
   if (error) {
     showMessage(inventoryMessage, friendlyError(error), true);
     return;
   }
-  productForm.reset();
-  productForm.elements.threshold.value = '5';
+  cancelEdit();
   await loadProducts();
 });
 
@@ -86,6 +94,11 @@ stockRows.addEventListener('click', async (event) => {
   if (!button) return;
   const product = products.find((item) => item.id === button.dataset.id);
   if (!product) return;
+
+  if (button.dataset.action === 'edit') {
+    startEditing(product);
+    return;
+  }
 
   let request;
   if (button.dataset.action === 'remove') {
@@ -145,6 +158,7 @@ async function showInventory(userId) {
 }
 
 function showLogin() {
+  cancelEdit();
   profile = undefined;
   inventoryPanel.hidden = true;
   loginPanel.hidden = false;
@@ -211,11 +225,45 @@ function renderProducts() {
 
     const actionCell = document.createElement('td');
     if (profile.role !== 'viewer') {
-      actionCell.append(createActionButton('×', 'remove', product.id, `Supprimer ${product.name}`));
+      const actions = document.createElement('div');
+      actions.className = 'row-actions';
+      actions.append(
+        createActionButton('Modifier', 'edit', product.id, `Modifier ${product.name}`),
+        createActionButton('×', 'remove', product.id, `Supprimer ${product.name}`)
+      );
+      actionCell.append(actions);
     }
     row.append(actionCell);
     stockRows.append(row);
   }
+}
+
+function startEditing(product) {
+  editingProductId = product.id;
+  productForm.elements.name.value = product.name;
+  productForm.elements.sku.value = product.sku || '';
+  productForm.elements.quantity.value = product.quantity;
+  productForm.elements.unit.value = product.unit;
+  productForm.elements.threshold.value = product.threshold;
+  productForm.elements.batch.value = product.batch || '';
+  productForm.elements.expiry.value = product.expiry || '';
+  productFormTitle.textContent = 'Modifier un article';
+  productSubmitLabel.textContent = 'Enregistrer les modifications';
+  productSubmitIcon.textContent = '✓';
+  cancelEditButton.hidden = false;
+  showMessage(inventoryMessage, `Modification de « ${product.name} ».`);
+  productForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  productForm.elements.name.focus({ preventScroll: true });
+}
+
+function cancelEdit() {
+  editingProductId = null;
+  productForm.reset();
+  productForm.elements.threshold.value = '5';
+  productFormTitle.textContent = 'Ajouter un article';
+  productSubmitLabel.textContent = 'Ajouter au stock';
+  productSubmitIcon.textContent = '+';
+  cancelEditButton.hidden = true;
 }
 
 function addCell(row, text) {

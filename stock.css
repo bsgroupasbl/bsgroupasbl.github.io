@@ -46,6 +46,8 @@ input:focus-visible, button:focus-visible, a:focus-visible { outline: 2px solid 
 .quiet-button:hover { border-color: var(--coral); color: var(--coral); }
 .product-form { border-bottom: 1px solid var(--line); padding: 28px 0 30px; }
 .product-form h2 { margin-bottom: 18px; }
+.form-actions { align-items: center; display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+.form-actions .primary-button { margin-top: 0; }
 .form-grid { display: grid; gap: 14px; grid-template-columns: repeat(4, minmax(0, 1fr)); }
 .stock-list { padding-top: 32px; }
 .stock-list-heading { align-items: end; display: flex; justify-content: space-between; margin-bottom: 18px; }
@@ -58,6 +60,9 @@ td:first-child { font-weight: bold; }
 .quantity-control { align-items: center; display: flex; gap: 8px; }
 .quantity-control button, .delete-button { background: transparent; border: 1px solid var(--line); color: var(--ink); cursor: pointer; min-height: 32px; min-width: 32px; }
 .quantity-control button:hover, .delete-button:hover { border-color: var(--coral); color: var(--coral); }
+.row-actions { align-items: center; display: flex; gap: 6px; }
+.row-actions button { background: transparent; border: 1px solid var(--line); color: var(--ink); cursor: pointer; min-height: 32px; padding: 4px 8px; white-space: nowrap; }
+.row-actions button:hover { border-color: var(--coral); color: var(--coral); }
 .stock-status { color: #32614f; font-size: 0.75rem; white-space: nowrap; }
 .stock-status.low { color: #b24932; font-weight: bold; }
 .empty-state, .no-results { color: var(--muted); font-size: 0.9rem; padding: 24px 12px; text-align: center; }
