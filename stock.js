@@ -8,8 +8,10 @@ const companies = {
   tech: { name: 'BS TECH', pharma: false }
 };
 const searchParams = new URLSearchParams(window.location.search);
+const hashParams = new URLSearchParams(window.location.hash.slice(1));
 const requestedCompany = searchParams.get('company');
-let inviteFlow = searchParams.get('invite') === '1';
+let inviteFlow = searchParams.get('invite') === '1'
+  || ['invite', 'recovery'].includes(hashParams.get('type') || '');
 let companyKey = companies[requestedCompany] ? requestedCompany : 'print';
 let company = companies[companyKey];
 
