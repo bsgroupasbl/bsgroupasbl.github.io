@@ -193,7 +193,7 @@ inviteUserForm.addEventListener('submit', async (event) => {
 
   inviteSubmitButton.disabled = false;
   if (error) {
-    showMessage(inviteMessage, inviteUserErrorMessage(data, error), true);
+    showMessage(inviteMessage, await inviteUserErrorMessage(data, error), true);
     return;
   }
 
@@ -601,13 +601,18 @@ function normalizeCompany(value) {
   return aliases[normalized] || normalized;
 }
 
-function inviteUserErrorMessage(data, error) {
+async function inviteUserErrorMessage(data, error) {
   if (data?.error) return data.error;
   if (error?.context instanceof Response) {
     const response = error.context;
     if (response.status === 404) return 'La fonction invite-user est introuvable. Vérifiez son nom et son déploiement.';
     if (response.status === 401) return 'Session invalide. Connectez-vous en tant qu’administrateur.';
     if (response.status === 403) return 'Accès refusé. Seul l’administrateur peut inviter un utilisateur.';
+    try {
+      const body = await response.clone().json();
+      if (body?.error) return body.error;
+    } catch {}
+    if (response.status === 409) return 'Un compte existe déjà avec ce prénom et ce nom. Utilisez le compte existant ou vérifiez les informations.';
     return `Erreur Supabase (${response.status}). Vérifiez le déploiement et les logs de la fonction.`;
   }
   return error?.message || 'Impossible d’envoyer l’invitation. Vérifiez le déploiement de la fonction Supabase.';
