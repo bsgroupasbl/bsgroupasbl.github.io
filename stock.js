@@ -7,14 +7,20 @@ const companies = {
   pharma: { name: 'BS PHARMA', pharma: true },
   tech: { name: 'BS TECH', pharma: false }
 };
-const requestedCompany = new URLSearchParams(window.location.search).get('company');
+const searchParams = new URLSearchParams(window.location.search);
+const requestedCompany = searchParams.get('company');
+let inviteFlow = searchParams.get('invite') === '1';
 let companyKey = companies[requestedCompany] ? requestedCompany : 'print';
 let company = companies[companyKey];
 
 const loginPanel = document.querySelector('#login-panel');
+const passwordSetupPanel = document.querySelector('#password-setup-panel');
 const inventoryPanel = document.querySelector('#inventory-panel');
 const loginForm = document.querySelector('#login-form');
 const loginSubmitButton = document.querySelector('#login-submit-button');
+const passwordSetupForm = document.querySelector('#password-setup-form');
+const passwordSetupMessage = document.querySelector('#password-setup-message');
+const passwordSetupSubmitButton = document.querySelector('#password-setup-submit-button');
 const productForm = document.querySelector('#product-form');
 const saleForm = document.querySelector('#sale-form');
 const salesPanel = document.querySelector('#sales-panel');
@@ -83,6 +89,36 @@ loginForm.addEventListener('submit', async (event) => {
 
   const { error: sessionError } = await supabase.auth.setSession(data.session);
   if (sessionError) showMessage(loginMessage, friendlyError(sessionError), true);
+});
+
+passwordSetupForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const formData = new FormData(passwordSetupForm);
+  const password = String(formData.get('password'));
+  const confirmation = String(formData.get('password_confirmation'));
+  if (password.length < 8) {
+    showMessage(passwordSetupMessage, 'Le mot de passe doit contenir au moins 8 caractères.', true);
+    return;
+  }
+  if (password !== confirmation) {
+    showMessage(passwordSetupMessage, 'Les deux mots de passe ne correspondent pas.', true);
+    return;
+  }
+
+  passwordSetupSubmitButton.disabled = true;
+  showMessage(passwordSetupMessage, 'Enregistrement du mot de passe…');
+  const { data, error } = await supabase.auth.updateUser({ password });
+  passwordSetupSubmitButton.disabled = false;
+  if (error || !data.user) {
+    showMessage(passwordSetupMessage, error ? friendlyError(error) : 'Impossible de mettre à jour le mot de passe.', true);
+    return;
+  }
+
+  inviteFlow = false;
+  passwordSetupForm.reset();
+  window.history.replaceState({}, document.title, window.location.pathname);
+  showMessage(passwordSetupMessage, 'Mot de passe enregistré. Ouverture de votre espace…');
+  await showInventory(data.user.id);
 });
 
 document.querySelector('#logout-button').addEventListener('click', async () => {
@@ -216,15 +252,27 @@ stockRows.addEventListener('click', async (event) => {
 async function initialize() {
   const { data: { session }, error } = await supabase.auth.getSession();
   if (error) showMessage(loginMessage, friendlyError(error), true);
-  if (session) await showInventory(session.user.id);
+  if (session) {
+    if (inviteFlow) showPasswordSetup();
+    else await showInventory(session.user.id);
+  }
 
   supabase.auth.onAuthStateChange((_event, sessionUpdate) => {
     if (sessionUpdate) {
-      window.setTimeout(() => showInventory(sessionUpdate.user.id), 0);
+      window.setTimeout(() => {
+        if (inviteFlow) showPasswordSetup();
+        else showInventory(sessionUpdate.user.id);
+      }, 0);
     } else {
       showLogin();
     }
   });
+}
+
+function showPasswordSetup() {
+  loginPanel.hidden = true;
+  passwordSetupPanel.hidden = false;
+  inventoryPanel.hidden = true;
 }
 
 async function showInventory(userId) {
@@ -244,6 +292,7 @@ async function showInventory(userId) {
   companySelect.value = companyKey;
   syncCompanyDisplay();
   loginPanel.hidden = true;
+  passwordSetupPanel.hidden = true;
   inventoryPanel.hidden = false;
   companySwitcher.hidden = profile.role !== 'admin';
   inviteUserPanel.hidden = profile.role !== 'admin';
@@ -260,6 +309,7 @@ function showLogin() {
   companySwitcher.hidden = true;
   inviteUserPanel.hidden = true;
   salesPanel.hidden = true;
+  passwordSetupPanel.hidden = true;
   inviteUserForm.reset();
   showMessage(inviteMessage, '');
   showMessage(saleMessage, '');

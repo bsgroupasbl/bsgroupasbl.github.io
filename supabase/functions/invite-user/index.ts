@@ -116,7 +116,9 @@ Deno.serve(async (request: Request) => {
   if (nameLookupError) return jsonResponse(request, { error: 'Vérification du nom impossible.' }, 500);
   if (existingProfile) return jsonResponse(request, { error: 'Ce nom et ce postnom sont déjà attribués. Ajoutez un deuxième nom distinctif.' }, 409);
 
-  const { data: inviteData, error: inviteError } = await adminClient.auth.admin.inviteUserByEmail(email);
+  const { data: inviteData, error: inviteError } = await adminClient.auth.admin.inviteUserByEmail(email, {
+    redirectTo: 'https://bsgroupasbl.github.io/stock.html?invite=1'
+  });
   if (inviteError || !inviteData.user) {
     return jsonResponse(request, { error: inviteError?.message || 'Invitation impossible.' }, 400);
   }

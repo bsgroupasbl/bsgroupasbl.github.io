@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex, nofollow">
   <title>Gestion de stock | BS GROUP</title>
-  <link rel="stylesheet" href="stock.css?v=6b68643">
-  <script type="module" src="stock.js?v=6b68643"></script>
+  <link rel="stylesheet" href="stock.css?v=invite-flow-1">
+  <script type="module" src="stock.js?v=invite-flow-1"></script>
 </head>
 <body>
   <main class="app-shell">
@@ -29,6 +29,20 @@
         <button class="primary-button" id="login-submit-button" type="submit">Ouvrir l’espace entreprise <span aria-hidden="true">→</span></button>
       </form>
       <p class="app-message" id="login-message" role="status" aria-live="polite"></p>
+    </section>
+
+    <section class="login-panel" id="password-setup-panel" hidden aria-labelledby="password-setup-title">
+      <p class="eyebrow">Invitation acceptée</p>
+      <h1 id="password-setup-title">Choisir un mot de passe</h1>
+      <p class="login-company">Crée un mot de passe pour accéder à ton espace entreprise.</p>
+      <form id="password-setup-form">
+        <label for="new-password">Nouveau mot de passe</label>
+        <input id="new-password" name="password" type="password" autocomplete="new-password" minlength="8" required>
+        <label for="confirm-password">Confirmer le mot de passe</label>
+        <input id="confirm-password" name="password_confirmation" type="password" autocomplete="new-password" minlength="8" required>
+        <button class="primary-button" id="password-setup-submit-button" type="submit">Enregistrer le mot de passe <span aria-hidden="true">→</span></button>
+      </form>
+      <p class="app-message" id="password-setup-message" role="status" aria-live="polite"></p>
     </section>
 
     <section class="inventory-panel" id="inventory-panel" hidden aria-labelledby="inventory-title">
