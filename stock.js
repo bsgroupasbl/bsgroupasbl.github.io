@@ -14,10 +14,16 @@ let companyKey = companies[requestedCompany] ? requestedCompany : 'print';
 let company = companies[companyKey];
 
 const loginPanel = document.querySelector('#login-panel');
+const passwordResetPanel = document.querySelector('#password-reset-panel');
 const passwordSetupPanel = document.querySelector('#password-setup-panel');
 const inventoryPanel = document.querySelector('#inventory-panel');
 const loginForm = document.querySelector('#login-form');
 const loginSubmitButton = document.querySelector('#login-submit-button');
+const passwordResetForm = document.querySelector('#password-reset-form');
+const passwordResetMessage = document.querySelector('#password-reset-message');
+const passwordResetSubmitButton = document.querySelector('#password-reset-submit-button');
+const showPasswordResetButton = document.querySelector('#show-password-reset-button');
+const backToLoginButton = document.querySelector('#back-to-login-button');
 const passwordSetupForm = document.querySelector('#password-setup-form');
 const passwordSetupMessage = document.querySelector('#password-setup-message');
 const passwordSetupSubmitButton = document.querySelector('#password-setup-submit-button');
@@ -89,6 +95,36 @@ loginForm.addEventListener('submit', async (event) => {
 
   const { error: sessionError } = await supabase.auth.setSession(data.session);
   if (sessionError) showMessage(loginMessage, friendlyError(sessionError), true);
+});
+
+showPasswordResetButton.addEventListener('click', () => {
+  loginPanel.hidden = true;
+  passwordResetPanel.hidden = false;
+  passwordResetForm.reset();
+  showMessage(passwordResetMessage, '');
+});
+
+backToLoginButton.addEventListener('click', () => {
+  passwordResetPanel.hidden = true;
+  loginPanel.hidden = false;
+  showMessage(passwordResetMessage, '');
+});
+
+passwordResetForm.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const formData = new FormData(passwordResetForm);
+  const email = String(formData.get('email')).trim();
+  passwordResetSubmitButton.disabled = true;
+  showMessage(passwordResetMessage, 'Envoi du lien…');
+  const { error } = await supabase.auth.resetPasswordForEmail(email, {
+    redirectTo: 'https://bsgroupasbl.github.io/stock.html?invite=1'
+  });
+  passwordResetSubmitButton.disabled = false;
+  if (error) {
+    showMessage(passwordResetMessage, friendlyError(error), true);
+    return;
+  }
+  showMessage(passwordResetMessage, 'Si cette adresse est associée à un compte, un lien de réinitialisation a été envoyé.');
 });
 
 passwordSetupForm.addEventListener('submit', async (event) => {
@@ -271,6 +307,7 @@ async function initialize() {
 
 function showPasswordSetup() {
   loginPanel.hidden = true;
+  passwordResetPanel.hidden = true;
   passwordSetupPanel.hidden = false;
   inventoryPanel.hidden = true;
 }
@@ -292,6 +329,7 @@ async function showInventory(userId) {
   companySelect.value = companyKey;
   syncCompanyDisplay();
   loginPanel.hidden = true;
+  passwordResetPanel.hidden = true;
   passwordSetupPanel.hidden = true;
   inventoryPanel.hidden = false;
   companySwitcher.hidden = profile.role !== 'admin';
@@ -309,6 +347,7 @@ function showLogin() {
   companySwitcher.hidden = true;
   inviteUserPanel.hidden = true;
   salesPanel.hidden = true;
+  passwordResetPanel.hidden = true;
   passwordSetupPanel.hidden = true;
   inviteUserForm.reset();
   showMessage(inviteMessage, '');
