@@ -337,7 +337,8 @@ async function showInventory(userId) {
   companySwitcher.hidden = profile.role !== 'admin';
   inviteUserPanel.hidden = profile.role !== 'admin';
   productForm.hidden = profile.role === 'viewer';
-  salesPanel.hidden = profile.role === 'viewer';
+  salesPanel.hidden = false;
+  saleForm.hidden = false;
   document.querySelector('#user-role').textContent = roleLabels[profile.role] || '';
   showMessage(loginMessage, '');
   await Promise.all([loadProducts(), loadSales()]);
@@ -440,7 +441,7 @@ function renderSaleEstimate() {
   const quantity = Math.max(0, Number(saleQuantityInput.value) || 0);
   saleUnitPrice.textContent = formatCdf(unitPrice);
   saleTotal.textContent = formatCdf(unitPrice * quantity);
-  saleSubmitButton.disabled = !product || !profile || profile.role === 'viewer';
+  saleSubmitButton.disabled = !product || !profile;
 }
 
 function renderProducts() {

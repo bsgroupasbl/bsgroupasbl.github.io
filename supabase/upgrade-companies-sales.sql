@@ -68,7 +68,7 @@ begin
   from public.profiles
   where user_id = v_user_id;
 
-  if not found or v_role not in ('admin', 'manager') then
+  if not found or v_role not in ('admin', 'manager', 'viewer') then
     raise exception using errcode = '42501', message = 'Vente non autorisee.';
   end if;
 

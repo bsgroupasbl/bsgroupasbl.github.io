@@ -14,6 +14,8 @@ where user_id = 'UUID_DE_TON_COMPTE_ADMIN';
 
 Les noms doivent etre uniques. La connexion utilise nom + postnom + mot de passe; l'adresse e-mail reste utilisee pour recevoir l'invitation et recuperer le compte.
 
+Pour autoriser les consultants a enregistrer des ventes sans leur donner le droit de modifier l'inventaire, executer `allow-consultant-sales.sql` une fois dans le SQL Editor. Les ventes diminuent le stock via `record_sale`; les politiques RLS d'ajout, de modification et de suppression restent reservees aux administrateurs et gestionnaires.
+
 ## Deploiement des fonctions
 
 Dans le tableau de bord Supabase, **Edge Functions**, deployer les deux fonctions depuis leurs fichiers. Regler la validation JWT selon `config.toml` :
